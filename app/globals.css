@@ -1,0 +1,297 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+/*
+  「vercel 风格」设计系统 tokens
+  源规范：VoltAgent/awesome-design-md · vercel/DESIGN.md
+  值直接来自规范。品牌名 / logo / 营销文案不复制，仅保留视觉语言。
+*/
+
+@theme inline {
+  /* 字体族（见 layout.tsx 中 next/font 变量注入）
+     Geist / Geist Mono 由 Vercel 以 SIL OFL 开源，next/font/google 直接可用，
+     故直接使用其本体作为几何无衬线 + 等宽面，中文回落到 Noto Sans SC。 */
+  --font-sans: var(--font-geist-src), 'Geist', var(--font-cjk-src),
+    ui-sans-serif, system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei',
+    'Hiragino Sans GB', sans-serif;
+  --font-mono: var(--font-geist-mono-src), 'Geist Mono', var(--font-cjk-src),
+    ui-monospace, 'SFMono-Regular', Menlo, Monaco, 'PingFang SC',
+    'Microsoft YaHei', monospace;
+
+  /* shadcn 语义色映射到 vercel 调色板 */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* vercel 品牌扩展色（可直接 bg-ink / text-body / bg-canvas-soft 使用） */
+  --color-ink: var(--ink);
+  --color-body: var(--body);
+  --color-mute: var(--mute);
+  --color-on-primary: var(--on-primary);
+  --color-canvas: var(--canvas);
+  --color-canvas-soft: var(--canvas-soft);
+  --color-canvas-soft-2: var(--canvas-soft-2);
+  --color-hairline: var(--hairline);
+  --color-hairline-strong: var(--hairline-strong);
+  --color-link: var(--link);
+  --color-link-deep: var(--link-deep);
+  --color-link-bg-soft: var(--link-bg-soft);
+  --color-success: var(--success);
+  --color-error: var(--error);
+  --color-error-soft: var(--error-soft);
+  --color-error-deep: var(--error-deep);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-warning-deep: var(--warning-deep);
+  --color-violet: var(--violet);
+  --color-violet-soft: var(--violet-soft);
+  --color-violet-deep: var(--violet-deep);
+  --color-cyan: var(--cyan);
+  --color-cyan-soft: var(--cyan-soft);
+  --color-cyan-deep: var(--cyan-deep);
+  --color-highlight-pink: var(--highlight-pink);
+  --color-highlight-magenta: var(--highlight-magenta);
+  --color-grad-develop-start: var(--grad-develop-start);
+  --color-grad-develop-end: var(--grad-develop-end);
+  --color-grad-preview-start: var(--grad-preview-start);
+  --color-grad-preview-end: var(--grad-preview-end);
+  --color-grad-ship-start: var(--grad-ship-start);
+  --color-grad-ship-end: var(--grad-ship-end);
+}
+
+/*
+  注意：圆角 / 间距刻度不注册进 @theme 的 --radius-* / --spacing-* 命名空间，
+  否则 xs/sm/md/lg/xl 会劫持 Tailwind 内建的 rounded-xl、max-w-xl 等工具类。
+  改在 :root 里定义为普通 CSS 变量，组件用 rounded-[var(--radius-md)] 引用，互不干扰。
+*/
+:root {
+  color-scheme: light;
+
+  /* ── vercel 原始色板（规范 colors，直接取值）── */
+  --ink: #171717;
+  --body: #4d4d4d;
+  --mute: #888888;
+  --on-primary: #ffffff;
+  --canvas: #ffffff;
+  --canvas-soft: #fafafa;
+  --canvas-soft-2: #f5f5f5;
+  --hairline: #ebebeb;
+  --hairline-strong: #a1a1a1;
+  --link: #0070f3;
+  --link-deep: #0761d1;
+  --link-bg-soft: #d3e5ff;
+  --success: #0070f3;
+  --error: #ee0000;
+  --error-soft: #f7d4d6;
+  --error-deep: #c50000;
+  --warning: #f5a623;
+  --warning-soft: #ffefcf;
+  --warning-deep: #ab570a;
+  --violet: #7928ca;
+  --violet-soft: #d8ccf1;
+  --violet-deep: #4c2889;
+  --cyan: #50e3c2;
+  --cyan-soft: #aaffec;
+  --cyan-deep: #29bc9b;
+  --highlight-pink: #ff0080;
+  --highlight-magenta: #eb367f;
+
+  /* 品牌渐变三对（develop / preview / ship），仅在 hero 尺度整体使用 */
+  --grad-develop-start: #007cf0;
+  --grad-develop-end: #00dfd8;
+  --grad-preview-start: #7928ca;
+  --grad-preview-end: #ff0080;
+  --grad-ship-start: #ff4d4d;
+  --grad-ship-end: #f9cb28;
+
+  --selection-bg: #171717;
+  --selection-fg: #f2f2f2;
+
+  /* ── shadcn 语义映射 ── */
+  --background: #fafafa;
+  --foreground: #171717;
+  --card: #ffffff;
+  --card-foreground: #171717;
+  --popover: #ffffff;
+  --popover-foreground: #171717;
+  --primary: #171717;
+  --primary-foreground: #ffffff;
+  --secondary: #f5f5f5;
+  --secondary-foreground: #171717;
+  --muted: #f5f5f5;
+  --muted-foreground: #888888;
+  --accent: #d3e5ff;
+  --accent-foreground: #0761d1;
+  --destructive: #ee0000;
+  --border: #ebebeb;
+  --input: #ebebeb;
+  --ring: #0070f3;
+
+  /* ── 圆角刻度（规范 rounded）── 普通 CSS 变量，rounded-[var(--radius-*)] 引用 */
+  --radius-none: 0px;
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-pill-sm: 64px;
+  --radius-pill: 100px;
+  --radius-full: 9999px;
+
+  /* ── 间距刻度（规范 spacing，4px 基） ── p-[var(--space-xl)] / gap-[var(--space-lg)] 引用 */
+  --space-xxs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 40px;
+  --space-3xl: 48px;
+  --space-4xl: 64px;
+  --space-5xl: 96px;
+  --space-6xl: 128px;
+  --space-section: 192px;
+
+  /* ── 高程刻度（规范 Elevation & Depth，堆叠阴影 + inset 发丝环）── */
+  --shadow-inset: inset 0 0 0 1px #00000014;
+  --shadow-1: var(--shadow-inset);
+  --shadow-2: var(--shadow-inset), 0px 1px 1px #00000005,
+    0px 2px 2px #0000000a;
+  --shadow-3: var(--shadow-inset), 0px 2px 2px #0000000a,
+    0px 8px 8px -8px #0000000a;
+  --shadow-4: var(--shadow-inset), 0px 2px 2px #0000000a,
+    0px 8px 16px -4px #0000000a;
+  --shadow-5: var(--shadow-inset), 0px 1px 1px #00000005,
+    0px 8px 16px -4px #0000000a, 0px 24px 32px -8px #0000000f;
+
+  /* 内容最大宽度（规范 --ds-page-width ≈ 1400px） */
+  --page-width: 1400px;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  ::selection {
+    background: var(--selection-bg);
+    color: var(--selection-fg);
+  }
+}
+
+/*
+  排版刻度工具类（规范 typography）
+  display 用 clamp 在移动端收敛；负字距是品牌声音的一部分，不可回默认。
+  值：display-xl 48/600/-2.4px · lg 32/600/-1.28px · md 24/600/-0.96px · sm 20/600/-0.6px
+      body-lg 18/400 · md 16/400 · sm 14/400/-0.28px · caption 12/400 · code 13/400 mono
+*/
+@layer components {
+  .type-display-xl {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: clamp(2.25rem, 1.4rem + 3.6vw, 3rem);
+    line-height: 1;
+    letter-spacing: -0.05em;
+  }
+  .type-display-lg {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: clamp(1.75rem, 1.3rem + 1.8vw, 2rem);
+    line-height: 1.25;
+    letter-spacing: -0.04em;
+  }
+  .type-display-md {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 1.5rem;
+    line-height: 1.333;
+    letter-spacing: -0.04em;
+  }
+  .type-display-sm {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 1.25rem;
+    line-height: 1.4;
+    letter-spacing: -0.03em;
+  }
+  .type-body-lg {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    font-size: 1.125rem;
+    line-height: 1.556;
+  }
+  .type-body-md {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  .type-body-md-strong {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  .type-body-sm {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    font-size: 0.875rem;
+    line-height: 1.429;
+    letter-spacing: -0.02em;
+  }
+  .type-body-sm-strong {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 0.875rem;
+    line-height: 1.429;
+    letter-spacing: -0.02em;
+  }
+  .type-caption {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    font-size: 0.75rem;
+    line-height: 1.333;
+  }
+  .type-caption-mono {
+    font-family: var(--font-mono);
+    font-weight: 400;
+    font-size: 0.75rem;
+    line-height: 1.333;
+  }
+  .type-code {
+    font-family: var(--font-mono);
+    font-weight: 400;
+    font-size: 0.8125rem;
+    line-height: 1.538;
+  }
+  .type-button-md {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 0.875rem;
+    line-height: 1.429;
+  }
+  .type-button-lg {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+}
