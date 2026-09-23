@@ -42,6 +42,13 @@ variant：marketing（默认，8px / Level 3）/ large（12px / Level 4）/ soft
 
 variant：secondary（默认）/ outline / info / success / warning / error。success 使用源规范的蓝色。状态必须带文字，不只靠色块。
 
+### Avatar / AvatarStack — `@/components/ui/avatar`
+
+源：`components/ui/avatar.tsx`。导出 Avatar、AvatarStack。经 vercel.com 实测校准（blog / changelog 作者署名）：小号圆形头像，尺寸 size="sm"(20) / md(24) / lg(32)，默认 md；每枚外描一圈画布色环（`ring-2 ring-canvas`）。
+
+- Avatar：接受 src、alt、size；继承 img 属性。缺图回落 `/placeholder.svg`；装饰性头像 alt 传空串。
+- AvatarStack：接受 avatars（{ src, alt }[]）、size、className；后一枚 `-ml-2` 负外边距压叠成组，描环把彼此分隔开。用于多作者署名。不做最大数量截断或「+N」溢出徽章，需要时自行扩展。
+
 ## 导航与组合
 
 ### SiteNav — `@/components/ui/site-nav`
@@ -72,6 +79,14 @@ variant：secondary（默认）/ outline / info / success / warning / error。su
 
 源：`components/vercel/underline-tabs.tsx`。props：items: string[]、className。经 vercel.com 实测校准（docs / 产品页 hero）：active 项 `border-bottom 2px solid ink` + ink 文字、body-sm 常规字重、padding 14px 2px；inactive 项透明下边框 + mute 文字、hover 提到 ink；整行下方一条 hairline 基线，移动端横向滚动。以 role=tablist / role=tab / aria-selected 表达状态，但与 TabPills 一样**不含 tabpanel 或受控 value/onChange**，是视图切换的视觉示例；真实内容切换需自行接受控接口，不要伪造。
 
+### ArticleCard — `@/components/vercel/article-card`
+
+源：`components/vercel/article-card.tsx`。props：href（默认 #）、date、category、title、excerpt、authors（{ src, alt }[]）、authorLabel、className。经 vercel.com 实测校准（blog 列表）：无边框无阴影裸排，靠留白与字号分层；meta 行 = 日期 + 分类（body-sm / mute），标题 type-display-sm（32px/450，字距 -0.04em），摘要 body-md，底部 AvatarStack + 署名。整卡为一个 `<a>`，聚焦环已实现。它是列表项模板，不含真实路由或分页；authorLabel 由调用方按语言/人数自行组织（如「三位作者」或具体姓名）。
+
+### ChangelogTimeline — `@/components/vercel/changelog-timeline`
+
+源：`components/vercel/changelog-timeline.tsx`。导出 ChangelogTimeline、类型 ChangelogEntry。props：entries（ChangelogEntry[]）、className。ChangelogEntry = { date, title, summary, authors, authorLabel }。经 vercel.com 实测校准（changelog 列表）：桌面 `md:grid-cols-[10rem_1fr]` 左日期列 + 右内容列，内容列用 `border-l border-hairline` 画一条贯穿发丝竖线；标题 type-display-sm、摘要 body-md、底部 AvatarStack + 署名。移动端日期落到内容上方、竖线隐藏。它是版式模板，不含筛选、分页或锚点跳转，需要时自行扩展。
+
 ## 使用边界
 
-`components/showcase/` 是示例，不是稳定公共组件 API。保留其完整代码供参考，但新页面优先组合上述组件。交互 client 边界由实际组件需求决定，整个 app 不必转为 client。不要重新安装覆盖这些自定义 variant 的上游 button/card 文件。
+`components/showcase/` 是示例，不是稳定公共组件 API。保留其完整代码供参考，但��页面优先组合上述组件。交互 client 边界由实际组件需求决定，整个 app 不必转为 client。不要重新安装覆盖这些自定义 variant 的上游 button/card 文件。
