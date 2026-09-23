@@ -4,8 +4,10 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardDescription, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
+import { Kbd } from '@/components/ui/kbd'
 import { PricingCard } from '@/components/vercel/pricing-card'
 import { TabPills } from '@/components/vercel/tab-pills'
+import { UnderlineTabs } from '@/components/vercel/underline-tabs'
 
 /*
   组件区块：按钮、输入框、徽章、卡片、标签药丸、定价卡的可复用示例。
@@ -101,6 +103,13 @@ export function ComponentsSection() {
                 />
               </div>
               <Input inputSize="sm" placeholder="小号输入框（32px）" />
+              <div className="relative">
+                <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-mute" />
+                <Input inputSize="md" className="pl-9 pr-14" placeholder="搜索文档" />
+                <Kbd className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2">
+                  ⌘K
+                </Kbd>
+              </div>
             </div>
           </Group>
 
@@ -146,9 +155,23 @@ export function ComponentsSection() {
           </div>
         </div>
 
+        {/* 下划线标签 */}
+        <div className="mt-[var(--space-3xl)]">
+          <p className="type-body-sm-strong text-ink">
+            下划线标签 · 视图切换（docs / hero）
+          </p>
+          <div className="mt-4">
+            <UnderlineTabs
+              items={['部署应用', '配置 Agent', '调用模型', '连接数据']}
+            />
+          </div>
+        </div>
+
         {/* 标签药丸 */}
         <div className="mt-[var(--space-3xl)]">
-          <p className="type-body-sm-strong text-ink">标签药丸行</p>
+          <p className="type-body-sm-strong text-ink">
+            标签药丸行 · 筛选 / 分类入口
+          </p>
           <div className="mt-4">
             <TabPills
               items={['概览', '构建', '预览', '交付', '监控', '团队']}
