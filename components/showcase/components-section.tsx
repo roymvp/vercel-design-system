@@ -36,13 +36,13 @@ export function ComponentsSection() {
             可复用组件
           </h2>
           <p className="type-body-md mt-3 text-pretty text-body">
-            按钮、输入框、卡片与导航均由 token 驱动，营销尺度用 100px pill，nav 尺度用 6px
-            方角，两种尺度不在同一屏混用。
+            按钮、输入框、卡片与导航均由 token 驱动。按钮默认圆角矩形（常规 8px、nav 与小号
+            6px），全圆角 pill 仅用于 hero 主 CTA —— 形状与尺寸各自独立。
           </p>
         </div>
 
         <div className="mt-[var(--space-2xl)] grid gap-[var(--space-2xl)] lg:grid-cols-2">
-          <Group title="按钮 · 营销 pill 尺度">
+          <Group title="按钮 · 圆角矩形（默认）">
             <div className="flex flex-wrap items-center gap-3">
               <Button variant="primary" size="lg">
                 主操作
@@ -59,6 +59,18 @@ export function ComponentsSection() {
               </Button>
               <Button variant="link" size="md">
                 文字链接
+              </Button>
+            </div>
+          </Group>
+
+          <Group title="按钮 · pill（hero 主 CTA）">
+            <div className="flex flex-wrap items-center gap-3">
+              <Button variant="primary" size="lg" shape="pill">
+                开始构建
+                <ArrowRight className="size-4" />
+              </Button>
+              <Button variant="secondary" size="lg" shape="pill">
+                阅读文档
               </Button>
             </div>
           </Group>

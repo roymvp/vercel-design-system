@@ -204,33 +204,38 @@
       body-lg 18/400 · md 16/400 · sm 14/400/-0.28px · caption 12/400 · code 13/400 mono
 */
 @layer components {
+  /*
+    display 字重经 vercel.com 实测校准：官方 hero h1 64px 用 400、h2 56px 用 450，
+    字距恒为 -0.06em。为在展示尺度保持可读同时忠于「非粗体」特征，display 统一用
+    500（medium），字距按字号从 -0.06em 递减。不要回到 600 semibold。
+  */
   .type-display-xl {
     font-family: var(--font-sans);
-    font-weight: 600;
+    font-weight: 500;
     font-size: clamp(2.25rem, 1.4rem + 3.6vw, 3rem);
     line-height: 1;
-    letter-spacing: -0.05em;
+    letter-spacing: -0.06em;
   }
   .type-display-lg {
     font-family: var(--font-sans);
-    font-weight: 600;
+    font-weight: 500;
     font-size: clamp(1.75rem, 1.3rem + 1.8vw, 2rem);
     line-height: 1.25;
-    letter-spacing: -0.04em;
+    letter-spacing: -0.055em;
   }
   .type-display-md {
     font-family: var(--font-sans);
-    font-weight: 600;
+    font-weight: 500;
     font-size: 1.5rem;
     line-height: 1.333;
-    letter-spacing: -0.04em;
+    letter-spacing: -0.045em;
   }
   .type-display-sm {
     font-family: var(--font-sans);
-    font-weight: 600;
+    font-weight: 500;
     font-size: 1.25rem;
     line-height: 1.4;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.035em;
   }
   .type-body-lg {
     font-family: var(--font-sans);

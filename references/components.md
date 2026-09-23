@@ -8,10 +8,10 @@
 
 源：`components/ui/button.tsx`。导出 Button、buttonVariants。基于 `@base-ui/react/button`，继承 ButtonPrimitive.Props；自定义元素走 Base UI 的 `render`，不是 Radix 的 asChild。
 
-- variant：primary（默认）/ secondary / invert / ghost / link。
-- size：md（默认，40px）/ lg（48px）/ sm（32px）/ nav（28px）/ text。
-- lg / md / sm 为 100px pill 圆角，nav 为 6px。variant 控制颜色，不控制尺度。
-- disabled、focus-visible 聚焦环已实现。没有 isLoading / isPending / outline / default 等额外 variant，不要臆造。
+- variant：primary（默认）/ secondary / invert / ghost / link——只控制颜色。
+- size：md（默认，40px）/ lg（48px）/ sm（32px）/ nav（28px）/ text——只控制尺寸。
+- shape：rounded（默认，圆角矩形；常规 8px、sm 与 nav 收到 6px）/ pill（全圆角）。经 vercel.com 实测校准：官方默认按钮是圆角矩形，pill 仅用于 hero 主 CTA 等强调场景，不要默认全站 pill。
+- 三轴（variant / size / shape）彼此独立，可自由组合。disabled、focus-visible 聚焦环已实现。没有 isLoading / isPending / outline / default 等额外 variant，不要臆造。
 - 表单提交明确 type="submit"；一般操作 type="button"。纯导航也可用 buttonVariants 给真实链接套样式，避免按钮内嵌链接。
 
 ### Input — `@/components/ui/input`
