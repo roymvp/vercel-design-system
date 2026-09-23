@@ -1,6 +1,7 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
+import { ThemeToggle } from '@/components/theme/theme-toggle'
 import { cn } from '@/lib/utils'
 
 /*
@@ -38,6 +39,7 @@ export function SiteNav({ className }: { className?: string }) {
           </nav>
         </div>
         <div className="flex items-center gap-2">
+          <ThemeToggle className="hidden md:inline-flex" />
           <Button variant="ghost" size="nav" className="hidden sm:inline-flex">
             Ask AI
           </Button>
