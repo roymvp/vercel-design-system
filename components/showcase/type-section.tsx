@@ -3,10 +3,10 @@
   Geist 为几何无衬线主面，Geist Mono 用于技术标签与代码。
 */
 const specimens: { cls: string; name: string; meta: string; sample: string }[] = [
-  { cls: 'type-display-xl', name: 'display-xl', meta: '48 / 600 / -5% 字距', sample: '构建、预览、交付' },
-  { cls: 'type-display-lg', name: 'display-lg', meta: '32 / 600 / -4% 字距', sample: '为速度而设计的界面' },
-  { cls: 'type-display-md', name: 'display-md', meta: '24 / 600 / -4% 字距', sample: '统一的视觉语言' },
-  { cls: 'type-display-sm', name: 'display-sm', meta: '20 / 600 / -3% 字距', sample: '组件与 token' },
+  { cls: 'type-display-xl', name: 'display-xl', meta: '48 / 500 / -6% 字距', sample: '构建、预览、交付' },
+  { cls: 'type-display-lg', name: 'display-lg', meta: '32 / 500 / -5.5% 字距', sample: '为速度而设计的界面' },
+  { cls: 'type-display-md', name: 'display-md', meta: '24 / 500 / -4.5% 字距', sample: '统一的视觉语言' },
+  { cls: 'type-display-sm', name: 'display-sm', meta: '20 / 500 / -3.5% 字距', sample: '组件与 token' },
   { cls: 'type-body-lg', name: 'body-lg', meta: '18 / 400', sample: '正文大号用于引导段落，行高宽松、阅读舒适。' },
   { cls: 'type-body-md', name: 'body-md', meta: '16 / 400', sample: '标准正文，承载页面大部分说明性文字与描述。' },
   { cls: 'type-body-sm', name: 'body-sm', meta: '14 / 400 / -2% 字距', sample: '小号正文，用于辅助说明、表单帮助与元信息。' },

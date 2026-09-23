@@ -4,8 +4,10 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardDescription, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
+import { Kbd } from '@/components/ui/kbd'
 import { PricingCard } from '@/components/vercel/pricing-card'
 import { TabPills } from '@/components/vercel/tab-pills'
+import { UnderlineTabs } from '@/components/vercel/underline-tabs'
 
 /*
   组件区块：按钮、输入框、徽章、卡片、标签药丸、定价卡的可复用示例。
@@ -36,13 +38,13 @@ export function ComponentsSection() {
             可复用组件
           </h2>
           <p className="type-body-md mt-3 text-pretty text-body">
-            按钮、输入框、卡片与导航均由 token 驱动，营销尺度用 100px pill，nav 尺度用 6px
-            方角，两种尺度不在同一屏混用。
+            按钮、输入框、卡片与导航均由 token 驱动。按钮默认圆角矩形（常规 8px、nav 与小号
+            6px），全圆角 pill 仅用于 hero 主 CTA —— 形状与尺寸各自独立。
           </p>
         </div>
 
         <div className="mt-[var(--space-2xl)] grid gap-[var(--space-2xl)] lg:grid-cols-2">
-          <Group title="按钮 · 营销 pill 尺度">
+          <Group title="按钮 · 圆角矩形（默认）">
             <div className="flex flex-wrap items-center gap-3">
               <Button variant="primary" size="lg">
                 主操作
@@ -59,6 +61,18 @@ export function ComponentsSection() {
               </Button>
               <Button variant="link" size="md">
                 文字链接
+              </Button>
+            </div>
+          </Group>
+
+          <Group title="按钮 · pill（hero 主 CTA）">
+            <div className="flex flex-wrap items-center gap-3">
+              <Button variant="primary" size="lg" shape="pill">
+                开始构建
+                <ArrowRight className="size-4" />
+              </Button>
+              <Button variant="secondary" size="lg" shape="pill">
+                阅读文档
               </Button>
             </div>
           </Group>
@@ -89,6 +103,13 @@ export function ComponentsSection() {
                 />
               </div>
               <Input inputSize="sm" placeholder="小号输入框（32px）" />
+              <div className="relative">
+                <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-mute" />
+                <Input inputSize="md" className="pl-9 pr-14" placeholder="搜索文档" />
+                <Kbd className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2">
+                  ⌘K
+                </Kbd>
+              </div>
             </div>
           </Group>
 
@@ -134,9 +155,23 @@ export function ComponentsSection() {
           </div>
         </div>
 
+        {/* 下划线标签 */}
+        <div className="mt-[var(--space-3xl)]">
+          <p className="type-body-sm-strong text-ink">
+            下划线标签 · 视图切换（docs / hero）
+          </p>
+          <div className="mt-4">
+            <UnderlineTabs
+              items={['部署应用', '配置 Agent', '调用模型', '连接数据']}
+            />
+          </div>
+        </div>
+
         {/* 标签药丸 */}
         <div className="mt-[var(--space-3xl)]">
-          <p className="type-body-sm-strong text-ink">标签药丸行</p>
+          <p className="type-body-sm-strong text-ink">
+            标签药丸行 · 筛选 / 分类入口
+          </p>
           <div className="mt-4">
             <TabPills
               items={['概览', '构建', '预览', '交付', '监控', '团队']}

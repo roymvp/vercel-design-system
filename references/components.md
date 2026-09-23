@@ -8,10 +8,10 @@
 
 源：`components/ui/button.tsx`。导出 Button、buttonVariants。基于 `@base-ui/react/button`，继承 ButtonPrimitive.Props；自定义元素走 Base UI 的 `render`，不是 Radix 的 asChild。
 
-- variant：primary（默认）/ secondary / invert / ghost / link。
-- size：md（默认，40px）/ lg（48px）/ sm（32px）/ nav（28px）/ text。
-- lg / md / sm 为 100px pill 圆角，nav 为 6px。variant 控制颜色，不控制尺度。
-- disabled、focus-visible 聚焦环已实现。没有 isLoading / isPending / outline / default 等额外 variant，不要臆造。
+- variant：primary（默认）/ secondary / invert / ghost / link——只控制颜色。
+- size：md（默认，40px）/ lg（48px）/ sm（32px）/ nav（28px）/ text——只控制尺寸。
+- shape：rounded（默认，圆角矩形；常规 8px、sm 与 nav 收到 6px）/ pill（全圆角）。经 vercel.com 实测校准：官方默认按钮是圆角矩形，pill 仅用于 hero 主 CTA 等强调场景，不要默认全站 pill。
+- 三轴（variant / size / shape）彼此独立，可自由组合。disabled、focus-visible 聚焦环已实现。没有 isLoading / isPending / outline / default 等额外 variant，不要臆造。
 - 表单提交明确 type="submit"；一般操作 type="button"。纯导航也可用 buttonVariants 给真实链接套样式，避免按钮内嵌链接。
 
 ### Input — `@/components/ui/input`
@@ -19,6 +19,12 @@
 源：`components/ui/input.tsx`。导出 Input、inputVariants。继承原生 input 属性。尺寸参数叫 `inputSize`：sm / md / lg，对应 32 / 40 / 48px，默认 md；不是 size。
 
 白底、6px 圆角、发丝边。支持 disabled、aria-invalid 样式。调用方提供 label（htmlFor + id）或 aria-label、错误描述 id 与 aria-describedby；placeholder 不代替标签。
+
+搜索框模式：`relative` 容器内左侧绝对定位图标（`pl-9`）、右侧用 Kbd 放 ⌘K 提示（`pr-14`）。Kbd 与图标 `pointer-events-none`，不拦截输入。
+
+### Kbd — `@/components/ui/kbd`
+
+源：`components/ui/kbd.tsx`。继承 kbd 原生属性，只接受 className + children。经 vercel.com 实测校准：12px、4px 圆角（radius-xs）、发丝描边、**GeistSans（非等宽）**、ink 文字、白面、高 20px。用于搜索框快捷键提示、命令面板。子内容自带（如 `⌘K`），不做按键序列解析。
 
 ## 内容与状态
 
@@ -59,6 +65,12 @@ variant：secondary（默认）/ outline / info / success / warning / error。su
 ### TabPills — `@/components/vercel/tab-pills`
 
 源：`components/vercel/tab-pills.tsx`。props：items: string[]、className。内部管理当前选项，以 aria-pressed 表达状态，移动端横向滚动。它是按钮组选中状态示例，不是 WAI-ARIA Tabs：没有 tabpanel、受控 value/onChange 或内容过滤承诺。真实筛选需求应增加受控接口或使用正确的基础组件，不伪造已有行为。
+
+用途区分：TabPills（药丸背景翻转）用于「筛选 / 分类入口」；UnderlineTabs（下划线）用于「同一内容区的视图切换」。两者不要混用。
+
+### UnderlineTabs — `@/components/vercel/underline-tabs`
+
+源：`components/vercel/underline-tabs.tsx`。props：items: string[]、className。经 vercel.com 实测校准（docs / 产品页 hero）：active 项 `border-bottom 2px solid ink` + ink 文字、body-sm 常规字重、padding 14px 2px；inactive 项透明下边框 + mute 文字、hover 提到 ink；整行下方一条 hairline 基线，移动端横向滚动。以 role=tablist / role=tab / aria-selected 表达状态，但与 TabPills 一样**不含 tabpanel 或受控 value/onChange**，是视图切换的视觉示例；真实内容切换需自行接受控接口，不要伪造。
 
 ## 使用边界
 

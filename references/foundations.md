@@ -19,10 +19,10 @@ Geist（sans）和 Geist Mono（mono）均为开源字体，通过 next/font/goo
 
 | 类名 | 桌面字号 | 字重 / 特征 |
 | --- | --- | --- |
-| type-display-xl | 48px，移动 clamp | 600 / -0.05em |
-| type-display-lg | 32px，移动 clamp | 600 / -0.04em |
-| type-display-md | 24px | 600 / -0.04em |
-| type-display-sm | 20px | 600 / -0.03em |
+| type-display-xl | 48px，移动 clamp | 500 / -0.06em |
+| type-display-lg | 32px，移动 clamp | 500 / -0.055em |
+| type-display-md | 24px | 500 / -0.045em |
+| type-display-sm | 20px | 500 / -0.035em |
 | type-body-lg / md / sm | 18 / 16 / 14px | 400 |
 | type-body-md-strong / sm-strong | 16 / 14px | 500 |
 | type-caption / caption-mono | 12px | 仅辅助样本、标签 |

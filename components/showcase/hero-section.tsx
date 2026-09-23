@@ -27,11 +27,11 @@ export function HeroSection() {
             —— 一套克制而自信的视觉系统。
           </p>
           <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row">
-            <Button variant="primary" size="lg">
+            <Button variant="primary" size="lg" shape="pill">
               开始构建
               <ArrowRight className="size-4" />
             </Button>
-            <Button variant="secondary" size="lg">
+            <Button variant="secondary" size="lg" shape="pill">
               阅读文档
             </Button>
           </div>
