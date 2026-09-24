@@ -46,3 +46,26 @@ Geist（sans）和 Geist Mono（mono）均为开源字体，通过 next/font/goo
 starter 使用 Tailwind 默认断点：sm 640px、md 768px、lg 1024px、xl 1280px、2xl 1536px；这是实现决策，不是源规范额外规定。布局以 flex 为先，真正二维内容用 grid。网格与 flex 内可滚动子项扩展时加 min-w-0。
 
 原规范没有独立 Motion 章节。当前仅轻量 CSS 控件过渡，无 Motion / GSAP 依赖，无路由过渡承诺。新增动画需尊重 prefers-reduced-motion，不把新库变成默认基础设施。
+
+## 明暗双主题
+
+对齐 Geist 的 light / dark / system 三态。token 分两层：`:root` 存放**语义变量**（canvas / ink / body / mute / hairline 等），`.dark` 覆盖同名语义变量为暗色刻度；`@theme inline` 只映射语义名，组件因此无需感知主题。暗色中性刻度取自 Geist 暗色（canvas `#000` / canvas-soft `#0a0a0a` / ink `#ededed` / hairline `rgba(255,255,255,.12)`），链接与状态色在暗色下相应提亮以维持对比。
+
+- 主题状态由 `<html>` 上的 `.dark` 类表达，`color-scheme` 同步切换，浏览器原生控件（滚动条、表单）随之反相。
+- `ThemeProvider`（`@/components/theme/theme-provider`）在 `<head>` 注入阻塞脚本，首帧前依据 localStorage（键 `theme`）或系统偏好写入 `.dark`，杜绝 FOUC；`layout.tsx` 的 `<html>` 必须带 `suppressHydrationWarning`。
+- `ThemeToggle`（`@/components/theme/theme-toggle`）是分段式 太阳 / 显示器 / 月亮 三态切换，选择 system 时跟随 `prefers-color-scheme` 实时变化。
+- 写组件时**只用语义 token**（`bg-canvas`、`text-ink`、`border-hairline`），不要写死 `#fff` / `#000` 或 tailwind 具体色阶，否则暗色下不会翻转。viewport 的 `themeColor` 已按 `prefers-color-scheme` 提供明暗两个值。
+
+## 动效 token
+
+`--duration-fast/base/slow`：120 / 200 / 320ms。`--ease-standard`（`cubic-bezier(0.2,0,0,1)`，进出通用）、`--ease-out`、`--ease-in`。用 `duration-[var(--duration-fast)]` 搭配 Base UI 的 `data-[starting-style]` / `data-[ending-style]` 做浮层进出。全部动画受 `prefers-reduced-motion` 收敛（见文末工具），不新增动画库。
+
+## 层级 z-index
+
+`--z-base/sticky/dropdown/overlay/modal/popover/tooltip/toast`：0 / 10 / 30 / 40 / 50 / 60 / 70 / 80。吸顶导航用 sticky，浮层（Dialog/Select/Menu/Tooltip/Toast）各按语义取对应层级，不再手写魔法数字。
+
+## 焦点、描边与不透明度
+
+- 焦点：统一 `focus-visible:ring-2 ring-ring/60`（或浮层内 `ring-ring/40`）+ `ring-offset-2 ring-offset-background`；键盘可见、指针点击不显示。所有交互原语共用此约定。
+- 描边宽度当前只有 1px 发丝（`border-hairline` / `border-hairline-strong`），未定义更粗刻度；需要强调用颜色对比而非加粗。
+- 不透明度：`--opacity-disabled`（0.5）、`--opacity-muted`（0.7）。禁用态统一 `opacity-[var(--opacity-disabled)]` + `pointer-events-none`。
