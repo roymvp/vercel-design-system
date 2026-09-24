@@ -3,5 +3,21 @@
   "starter": {
     "source": "skill-directory",
     "path": "assets/starter"
+  },
+  "referenceWorkspace": {
+    "sources": [
+      {
+        "id": "github-repo:roymvp/vercel-design-system:v0/vercel-style-design-system",
+        "type": "github-repo",
+        "repo": {
+          "org": "roymvp",
+          "name": "vercel-design-system"
+        },
+        "ref": "v0/vercel-style-design-system",
+        "mountPath": "/vercel/share/v0-reference-workspace-sources/roymvp/vercel-design-system/v0%2Fvercel-style-design-system",
+        "vercelProjectId": "prj_xgPUS62nLosatz3lQdHVJQx1EzpQ",
+        "vercelProjectName": "vercel-design-system"
+      }
+    ]
   }
 }

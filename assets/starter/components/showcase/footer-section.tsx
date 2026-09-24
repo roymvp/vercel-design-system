@@ -18,8 +18,7 @@ export function FooterSection() {
               <span className="type-body-md-strong">Northstar</span>
             </a>
             <p className="type-body-sm mt-3 max-w-xs text-body">
-              一套用于构建、预览与交付的界面语言。基于 vercel 视觉规范提炼，剥离品牌名与
-              营销文案。
+              工程扩展：多列页脚模板，不属于 Live Preview 原生内容。示例链接未连接业务页面。
             </p>
           </div>
           {columns.map((col) => (

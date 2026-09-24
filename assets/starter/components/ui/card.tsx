@@ -3,17 +3,15 @@ import * as React from 'react'
 
 import { cn } from '@/lib/utils'
 
-/*
-  vercel 风格卡片
-  源规范 components：card-marketing（8px / Level 3）、card-marketing-large（12px / Level 4）、
-  card-soft（canvas-soft 面 / 8px）、template-card（8px / 紧凑 padding）。
-  高程一律用堆叠阴影（--shadow-*）+ inset 发丝环，绝不用单层重投影。
-*/
+/* Live Preview feature cards are flat by default: 16px light / 12px dark.
+   Legacy variants remain available as explicitly documented engineering extensions. */
 const cardVariants = cva('text-ink', {
   variants: {
     variant: {
       marketing:
-        'bg-canvas rounded-[var(--radius-md)] p-[var(--space-lg)] shadow-[var(--shadow-3)]',
+        'bg-card rounded-[var(--feature-radius)] p-6 border border-hairline',
+      elevated:
+        'bg-card rounded-[var(--feature-radius)] p-6 border border-hairline shadow-[var(--shadow-2)]',
       large:
         'bg-canvas rounded-[var(--radius-lg)] p-[var(--space-xl)] shadow-[var(--shadow-4)]',
       soft: 'bg-canvas-soft rounded-[var(--radius-md)] p-[var(--space-lg)] shadow-[var(--shadow-1)]',

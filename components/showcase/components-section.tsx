@@ -1,4 +1,5 @@
 import { ArrowRight, Search } from 'lucide-react'
+import { ThemeToggle } from '@/components/theme/theme-toggle'
 
 import { Avatar } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
@@ -64,21 +65,20 @@ function Group({
 
 export function ComponentsSection() {
   return (
-    <section className="border-b border-hairline py-[var(--space-5xl)]">
-      <div className="mx-auto max-w-[var(--page-width)] px-4 md:px-6">
+    <section id="extensions" className="preview-section border-t border-hairline">
+      <div>
         <div className="max-w-2xl">
-          <p className="type-caption-mono uppercase text-mute">Components</p>
-          <h2 className="type-display-lg mt-3 text-balance text-ink">
-            可复用组件
-          </h2>
-          <p className="type-body-md mt-3 text-pretty text-body">
-            按钮、输入框、卡片与导航均由 token 驱动。按钮默认圆角矩形（常规 8px、nav 与小号
-            6px），全圆角 pill 仅用于 hero 主 CTA —— 形状与尺寸各自独立。
+          <p className="type-caption text-body">工程扩展 · 保留的组合与兼容 API</p>
+          <h2 className="type-section-heading mt-3 text-balance text-ink">扩展组件</h2>
+          <p className="type-body-lg mt-3 text-pretty text-body">
+            以下额外变体、定价模板、文章与更新日志不属于 Live Preview 原生内容。
+            示例数据只用于展示布局，不代表真实服务、价格或发布公告。
           </p>
+          <div className="mt-4"><ThemeToggle /></div>
         </div>
 
         <div className="mt-[var(--space-2xl)] grid gap-[var(--space-2xl)] lg:grid-cols-2">
-          <Group title="按钮 · 圆角矩形（默认）">
+          <Group title="按钮 · 营销胶囊（默认）">
             <div className="flex flex-wrap items-center gap-3">
               <Button variant="primary" size="lg">
                 主操作
@@ -113,13 +113,13 @@ export function ComponentsSection() {
 
           <Group title="按钮 · nav 6px 尺度">
             <div className="flex flex-wrap items-center gap-3">
-              <Button variant="ghost" size="nav">
+              <Button variant="ghost" size="nav" shape="rounded">
                 Ask AI
               </Button>
-              <Button variant="secondary" size="nav">
+              <Button variant="secondary" size="nav" shape="rounded">
                 登录
               </Button>
-              <Button variant="primary" size="nav">
+              <Button variant="primary" size="nav" shape="rounded">
                 注册
               </Button>
             </div>
@@ -127,19 +127,19 @@ export function ComponentsSection() {
 
           <Group title="输入框 · 三档尺寸">
             <div className="flex flex-col gap-3">
-              <Input inputSize="lg" placeholder="大号输入框（48px）" />
+              <Input inputSize="lg" aria-label="大号输入框" placeholder="大号输入框（48px）" />
               <div className="relative">
                 <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-mute" />
                 <Input
                   inputSize="md"
                   className="pl-9"
-                  placeholder="标准输入框（40px）"
+                  aria-label="标准输入框" placeholder="标准输入框（40px）"
                 />
               </div>
-              <Input inputSize="sm" placeholder="小号输入框（32px）" />
+              <Input inputSize="sm" aria-label="小号输入框" placeholder="小号输入框（32px）" />
               <div className="relative">
                 <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-mute" />
-                <Input inputSize="md" className="pl-9 pr-14" placeholder="搜索文档" />
+                <Input inputSize="md" className="pl-9 pr-14" aria-label="搜索文档" placeholder="搜索文档" />
                 <Kbd className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2">
                   ⌘K
                 </Kbd>
@@ -166,10 +166,10 @@ export function ComponentsSection() {
           <p className="type-body-sm-strong text-ink">卡片 · 高程变体</p>
           <div className="mt-4 grid gap-6 md:grid-cols-3">
             <Card variant="marketing">
-              <Badge variant="secondary">Level 3</Badge>
+              <Badge variant="secondary">Flat</Badge>
               <CardTitle className="mt-4">营销卡片</CardTitle>
               <CardDescription className="mt-2">
-                白面 8px 圆角，堆叠阴影带来克制的浮起感，用于承载功能说明。
+                默认平面描边，浅色 16px、暗色 12px 圆角，用于承载功能说明。
               </CardDescription>
             </Card>
             <Card variant="soft">
@@ -183,7 +183,7 @@ export function ComponentsSection() {
               <Badge variant="info">Level 4</Badge>
               <CardTitle className="mt-4">大号卡片</CardTitle>
               <CardDescription className="mt-2">
-                12px 圆角与更深的堆叠阴影，用于需要视觉重量的核心内容块。
+                16px 圆角与更深的单层阴影；这是兼容保留的工程变体。
               </CardDescription>
             </Card>
           </div>
@@ -259,7 +259,7 @@ export function ComponentsSection() {
               date="9 月 8 日"
               category="产品"
               title="按尺寸与形状解耦的按钮模型"
-              excerpt="默认圆角矩形承载绝大多数场景，pill 仅保留给 hero 主 CTA —— 形状不再被尺寸绑架。"
+              excerpt="营销按钮默认 pill，紧凑导航样本采用 6px 圆角；尺寸与形状保持独立。"
               authors={AUTHORS.slice(0, 2)}
               authorLabel="两位作者"
             />

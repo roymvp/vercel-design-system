@@ -1,221 +1,76 @@
-/*
-  基础 tokens 区块：颜色 / 间距 / 圆角 / 高程。
-  完整呈现规范 token 集合，供设计系统对照检查。
-*/
-
-function SectionHead({
-  eyebrow,
-  title,
-  desc,
-}: {
-  eyebrow: string
-  title: string
-  desc: string
-}) {
-  return (
-    <div className="max-w-2xl">
-      <p className="type-caption-mono uppercase text-mute">{eyebrow}</p>
-      <h2 className="type-display-lg mt-3 text-balance text-ink">{title}</h2>
-      <p className="type-body-md mt-3 text-pretty text-body">{desc}</p>
-    </div>
-  )
-}
-
-const colorGroups: { label: string; swatches: { name: string; value: string; ring?: boolean }[] }[] = [
-  {
-    label: '墨色与文本',
-    swatches: [
-      { name: 'ink', value: '#171717' },
-      { name: 'body', value: '#4d4d4d' },
-      { name: 'mute', value: '#888888' },
-      { name: 'on-primary', value: '#ffffff', ring: true },
-    ],
-  },
-  {
-    label: '画布与发丝线',
-    swatches: [
-      { name: 'canvas', value: '#ffffff', ring: true },
-      { name: 'canvas-soft', value: '#fafafa', ring: true },
-      { name: 'canvas-soft-2', value: '#f5f5f5', ring: true },
-      { name: 'hairline', value: '#ebebeb', ring: true },
-      { name: 'hairline-strong', value: '#a1a1a1' },
-    ],
-  },
-  {
-    label: '链接与强调',
-    swatches: [
-      { name: 'link', value: '#0070f3' },
-      { name: 'link-deep', value: '#0761d1' },
-      { name: 'link-bg-soft', value: '#d3e5ff', ring: true },
-    ],
-  },
-  {
-    label: '语义状态',
-    swatches: [
-      { name: 'success', value: '#0070f3' },
-      { name: 'error', value: '#ee0000' },
-      { name: 'error-deep', value: '#c50000' },
-      { name: 'warning', value: '#f5a623' },
-      { name: 'warning-deep', value: '#ab570a' },
-    ],
-  },
-  {
-    label: '品牌色相',
-    swatches: [
-      { name: 'violet', value: '#7928ca' },
-      { name: 'cyan', value: '#50e3c2' },
-      { name: 'highlight-pink', value: '#ff0080' },
-      { name: 'highlight-magenta', value: '#eb367f' },
-    ],
-  },
+/* Palette, spacing, radii and depth follow the Live Preview's rendered examples, not conflicting labels. */
+const colors = [
+  { name: 'Ink', token: 'ink', value: '#171717 / #ffffff', role: '标题、主按钮与最高强调文字。' },
+  { name: 'Body', token: 'body', value: '#4d4d4d / #a1a1a1', role: '正文与必读辅助信息。' },
+  { name: 'Mute', token: 'mute', value: '#8f8f8f / #a1a1a1', role: '预览原始弱化色；不用于浅底必读小字。' },
+  { name: 'Hairline', token: 'hairline', value: '#ebebeb / #2e2e2e', role: '卡片、输入框与分隔线。' },
+  { name: 'Canvas', token: 'background', value: '#ffffff / #0a0a0a', role: '实际页面画布，不以色板标签推断底色。' },
+  { name: 'Surface', token: 'card', value: '#ffffff / #171717', role: '内容卡片与浮层表面。' },
+  { name: 'Blue', token: 'link', value: '#0070f3', role: '链接、焦点与少量强调。' },
+  { name: 'Violet', token: 'violet', value: '#7928ca', role: '源色板样本，不代表默认装饰。' },
+  { name: 'Cyan', token: 'cyan', value: '#50e3c2', role: '源色板样本，不代表默认装饰。' },
+  { name: 'Pink', token: 'highlight-pink', value: '#ff0080', role: '源色板样本，不代表默认装饰。' },
+  { name: 'Error', token: 'error', value: '#ee0000 / #ff6166', role: '错误与破坏性操作。' },
+  { name: 'Warning', token: 'warning', value: '#f5a623', role: '警示色样本；状态同时提供文字。' },
 ]
-
-const gradients = [
-  { name: 'develop', from: '#007cf0', to: '#00dfd8' },
-  { name: 'preview', from: '#7928ca', to: '#ff0080' },
-  { name: 'ship', from: '#ff4d4d', to: '#f9cb28' },
-]
-
-const radii = [
-  { name: 'xs', value: 4 },
-  { name: 'sm', value: 6 },
-  { name: 'md', value: 8 },
-  { name: 'lg', value: 12 },
-  { name: 'xl', value: 16 },
-  { name: 'pill', value: 100 },
-]
-
-const spacing = [
-  { name: 'xxs', value: 4 },
-  { name: 'xs', value: 8 },
-  { name: 'sm', value: 12 },
-  { name: 'md', value: 16 },
-  { name: 'lg', value: 24 },
-  { name: 'xl', value: 32 },
-  { name: '2xl', value: 40 },
-  { name: '3xl', value: 48 },
-]
-
-const elevations = [
-  { name: 'Level 1', token: 'var(--shadow-1)' },
-  { name: 'Level 2', token: 'var(--shadow-2)' },
-  { name: 'Level 3', token: 'var(--shadow-3)' },
-  { name: 'Level 4', token: 'var(--shadow-4)' },
-  { name: 'Level 5', token: 'var(--shadow-5)' },
-]
+const spacing = [['xxs', 4], ['xs', 8], ['sm', 12], ['md', 16], ['lg', 24], ['xl', 32], ['2xl', 40], ['3xl', 64], ['4xl', 96], ['section', 128]] as const
+const radii = [['none', 0], ['sm', 6], ['md', 12], ['lg', 16], ['pill-sm', 64], ['pill', 100], ['full', 9999]] as const
 
 export function FoundationsSection() {
   return (
-    <section className="border-b border-hairline py-[var(--space-5xl)]">
-      <div className="mx-auto max-w-[var(--page-width)] px-4 md:px-6">
-        <SectionHead
-          eyebrow="Foundations"
-          title="Tokens 是唯一真相源"
-          desc="颜色、间距、圆角与高程全部落实为可引用的 token，组件只消费 token，绝不硬编码原始值。"
-        />
-
-        {/* 颜色 */}
-        <div className="mt-[var(--space-2xl)] space-y-8">
-          {colorGroups.map((group) => (
-            <div key={group.label}>
-              <p className="type-body-sm-strong text-ink">{group.label}</p>
-              <div className="mt-3 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-                {group.swatches.map((s) => (
-                  <div key={s.name} className="flex flex-col gap-2">
-                    <div
-                      className="h-16 w-full rounded-[var(--radius-md)]"
-                      style={{
-                        background: s.value,
-                        boxShadow: s.ring ? 'inset 0 0 0 1px #ebebeb' : undefined,
-                      }}
-                    />
-                    <div>
-                      <p className="type-body-sm-strong text-ink">{s.name}</p>
-                      <p className="type-caption-mono text-mute">{s.value}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-
-          {/* 品牌渐变三对 */}
-          <div>
-            <p className="type-body-sm-strong text-ink">品牌渐变（仅 hero 尺度）</p>
-            <div className="mt-3 grid gap-4 sm:grid-cols-3">
-              {gradients.map((g) => (
-                <div key={g.name} className="flex flex-col gap-2">
-                  <div
-                    className="h-16 w-full rounded-[var(--radius-md)]"
-                    style={{ background: `linear-gradient(90deg, ${g.from}, ${g.to})` }}
-                  />
-                  <div>
-                    <p className="type-body-sm-strong text-ink">{g.name}</p>
-                    <p className="type-caption-mono text-mute">
-                      {g.from} → {g.to}
-                    </p>
-                  </div>
-                </div>
-              ))}
+    <section id="foundations" className="preview-section" aria-labelledby="palette-heading">
+      <h2 id="palette-heading" className="type-section-heading mb-8 text-ink">色彩体系</h2>
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-4 max-[720px]:grid-cols-1">
+        {colors.map((color) => (
+          <div key={color.name} className="overflow-hidden rounded-[8px] border border-hairline">
+            <div className="h-[90px]" style={{ background: `var(--${color.token})` }} />
+            <div className="p-3">
+              <p className="text-sm font-semibold text-ink">{color.name}</p>
+              <p className="type-caption mt-0.5 text-body">{color.value}</p>
+              <p className="type-caption mt-1.5 text-body">{color.role}</p>
             </div>
           </div>
-        </div>
-
-        {/* 圆角 / 间距 / 高程 */}
-        <div className="mt-[var(--space-3xl)] grid gap-[var(--space-2xl)] lg:grid-cols-2">
-          <div>
-            <p className="type-body-sm-strong text-ink">圆角刻度</p>
-            <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3">
-              {radii.map((r) => (
-                <div key={r.name} className="flex flex-col gap-2">
-                  <div
-                    className="h-16 w-full border border-hairline bg-canvas-soft"
-                    style={{ borderRadius: `min(${r.value}px, 32px)` }}
-                  />
-                  <p className="type-caption-mono text-mute">
-                    {r.name} · {r.value}px
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <p className="type-body-sm-strong text-ink">间距刻度（4px 基）</p>
-            <div className="mt-4 flex flex-col gap-3">
-              {spacing.map((s) => (
-                <div key={s.name} className="flex items-center gap-3">
-                  <span className="w-16 shrink-0 type-caption-mono text-mute">
-                    {s.name}
-                  </span>
-                  <span
-                    className="h-3 rounded-[var(--radius-xs)] bg-link"
-                    style={{ width: `${s.value}px` }}
-                  />
-                  <span className="type-caption-mono text-mute">{s.value}px</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-[var(--space-3xl)]">
-          <p className="type-body-sm-strong text-ink">
-            高程刻度（堆叠阴影 + inset 发丝环）
-          </p>
-          <div className="mt-4 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-5">
-            {elevations.map((e) => (
-              <div key={e.name} className="flex flex-col items-center gap-3">
-                <div
-                  className="h-20 w-full rounded-[var(--radius-md)] bg-canvas"
-                  style={{ boxShadow: e.token }}
-                />
-                <p className="type-caption-mono text-mute">{e.name}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+        ))}
       </div>
     </section>
+  )
+}
+
+export function LayoutFoundationsSection() {
+  return (
+    <div id="layout">
+      <section className="preview-section" aria-labelledby="spacing-heading">
+        <h2 id="spacing-heading" className="type-section-heading mb-8 text-ink">间距刻度</h2>
+        <div className="flex flex-wrap items-end gap-4">
+          {spacing.map(([name, value]) => <div key={name}>
+            <div className="h-10 rounded-[var(--radius-sm)] bg-ink" style={{ width: value }} />
+            <p className="type-caption mt-2 text-body">{name} · {value}px</p>
+          </div>)}
+        </div>
+      </section>
+      <section className="preview-section" aria-labelledby="radius-heading">
+        <h2 id="radius-heading" className="type-section-heading mb-8 text-ink">圆角刻度</h2>
+        <div className="flex flex-wrap items-end gap-4">
+          {radii.map(([name, value]) => <div key={name}>
+            <div className="flex size-[90px] items-center justify-center border-2 border-ink text-xs" style={{ borderRadius: value }}>{value}px</div>
+            <p className="type-caption mt-2 text-body">{name}</p>
+          </div>)}
+        </div>
+      </section>
+      <section className="preview-section" aria-labelledby="depth-heading">
+        <h2 id="depth-heading" className="type-section-heading mb-8 text-ink">高程与深度</h2>
+        <div className="grid gap-5 min-[721px]:grid-cols-2">
+          <div className="rounded-[var(--radius-md)] border border-hairline bg-card p-6 type-body-md text-body">Level 0 · 默认平面，仅 1px 发丝描边。</div>
+          <div className="rounded-[var(--radius-md)] bg-card p-6 type-body-md text-body shadow-[var(--shadow-2)]">Level 2 · 实际渲染为 0 8px 24px / 10% 单层阴影。</div>
+        </div>
+      </section>
+      <section className="preview-section" aria-labelledby="responsive-heading">
+        <h2 id="responsive-heading" className="type-section-heading mb-8 text-ink">响应式布局</h2>
+        <p className="type-body-lg text-body">容器最大 1440px。桌面两侧 48px，平板 32px，手机 20px。预览实际在 1024px 和 720px 切换，基础网格在手机收为单列。</p>
+        <div className="mt-6 flex flex-wrap items-end gap-3" aria-label="示意设备宽度，非等比模型">
+          {[375, 768, 1024, 1280, 1440].map((width, index) => <div key={width} className="flex items-center justify-center rounded-[8px] border border-hairline text-xs text-body" style={{ width: 60 + index * 24, height: 80 + index * 16 }}>{width}</div>)}
+        </div>
+      </section>
+    </div>
   )
 }
