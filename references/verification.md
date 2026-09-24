@@ -1,27 +1,31 @@
 # 验证记录
 
-## 已完成
+## 2026-09-25 · Live Preview 校准
 
-- 用户已确认展示页与视觉验收通过，允许保存 skill 与推进 GitHub。
-- 完整 starter 独立安装、冻结锁文件复装、全量 TypeScript 检查及 Next.js 生产构建通过；首页以静态页面输出。
-- Next.js 已移除 ignoreBuildErrors，构建不能再绕过类型错误。
-- starter 包含 27 个源文件与配置文件（含实际生成的 pnpm 锁文件），不是单个组件 JSON。
-- 根工程与 starter 的直接依赖固定为验收所用版本；原始浮动范围不再用于后续安装。锁文件由包管理器生成，不手改。
-- `node scripts/verify-starter.mjs` 检查 starter 必备文件、v0.json 路径、绝对 file: 依赖、挂载路径导入、符号链接及损坏字符。这个本地检查不代替平台专用验证器。
-- 预览桌面 2198×1513、手机 390×844 的全页截图与从上到下滚动检查完成；document scrollWidth 分别为 2198 / 390，没有整页横向溢出。去除导航与页脚的实心三角标识，维持原验收版式。
-- 真实浏览器入口最终解析为预览端口 3000，因此截图证明的是预览渲染，而非另起端口的生产服务器行为；生产构建本身已单独通过。
+用户批准范围：按明暗 Live Preview 校准展示页、基础 tokens、相关组件及持久化 skill/starter；保留额外组件并标为工程扩展。
 
-## 尚未完成 / 不得宣称已通过
+### 权威来源与完成内容
 
-- [VERIFY] 完整 WebM 录屏：已执行录制流程，但导出失败，浏览器工具环境缺少 ffmpeg；只有截图和滚动检查，不存在可交付视频。
-- [VERIFY] 平台 VerifyDesignSystemSkill：当前工具列表不提供此能力，不能宣称完成 v0 官方契约验证或生成注册链接。
-- [VERIFY] GitHub 关联：当前项目没有 git remote。当前工具不能创建并关联 GitHub 仓库，需要在项目右上角设置的 GitHub 入口创建/连接。
-- [VERIFY] v0 Design Systems 2.0 注册：在 GitHub 连接后，以本项目完整仓库作为来源，填写名称「vercel 风格」。不可改为只导入 components.json，也不要选原始规范仓库代替当前成品仓库。
-- 未进行全站自动 WCAG 审计；原规范 mute 小字对比度、展示输入标签等不能视为完全无障碍认证。
-- 展示页的注册、登录、AI、定价 CTA 与虚构部署输出不是业务功能；正式应用应连接真实行为并另行验收。
+- 实际打开并检查 `https://getdesign.md/design-md/vercel/preview.html` 与 `https://getdesign.md/design-md/vercel/preview-dark.html` 的 DOM、计算样式和截图。
+- 校准纯色左对齐 hero、Inter、600 字重标题、明暗颜色、营销胶囊、导航与输入尺度、平面卡片、间距和阴影。源文字与实际渲染的差异记录在 `source-and-assets.md`。
+- 原生示例与额外组件分区；保留定价、文章、时间线、浮层等工程扩展，不声称它们来自原生预览。
+- 修改文件已同步到仓库 `assets/starter/` 与个人 live skill `vercel-style`，不是另建技能。已重新读取持久化 SKILL.md、v0.json，枚举确认其 references 和完整 starter 路径存在。
+- v0.json 补齐当前已配置参考仓库的规范 mountPath，修复此前配置加载器报告的缺失字段；未更改仓库、分支或项目身份。
 
-## 保存与后续维护
+### 已通过的验证
 
-个人 skill 标识为 vercel-style，中文展示名称为「vercel 风格」。SKILL.md、v0.json、references/ 与 assets/starter/ 组成完整交付，原视觉来源始终只有指定 vercel 规范。
+- 仓库完整 starter：`pnpm --dir assets/starter install --frozen-lockfile`，锁文件策略检查通过。
+- 全量 `pnpm --dir assets/starter typecheck` 与 `pnpm --dir assets/starter build` 通过；Next.js 16.3.3 首页静态输出。
+- `node scripts/verify-starter.mjs` 通过，60 个源码/配置文件；检查必要文件、绝对 file: 依赖、符号链接、环境文件、挂载路径导入和损坏字符。
+- 根工程 app/components/lib/examples 与仓库 starter 逐文件比较，无差异。
+- 实际浏览器：桌面 2108×1513 与手机 390×844 明暗主题截图；主题切换与对话框打开/Escape 关闭通过。手机文档宽度 390px，无整页横向溢出。
+- 输入标签关联、滑块可访问名称已补齐。检查中保留的无标签输入为 Base UI 内部隐藏控件，不能据此推断全部无障碍合规。
 
-后续可从任何对话继续维护该个人 skill，不必回到本对话。正式创建的平台设计系统也可从 Design Systems 页面维护；当前没有注册成功返回值，不编造系统 ID、GitHub URL 或 prompt 链接。
+### 验证边界
+
+- 安装、类型和构建验证运行于仓库完整 starter。memory skill 是文件工具提供的虚拟存储，不能由 Bash 直接访问；对该路径直接运行验证脚本返回 ENOENT。已通过文件工具核验保存内容和引用路径，但未对持久化副本另行运行全量构建。
+- 当前工具未提供平台专用设计系统验证器或配置重新加载能力；缺失字段已修复，但不宣称平台加载器复验通过或产生新注册结果。
+- 浏览器证据来自开发预览，不是生产部署；生产构建单独通过。未做全站自动 WCAG 审计、全量键盘路径或现场性能测量。
+- 源 mute 小字色不满足所有浅底对比度要求；保留色样并记录限制，不能宣称整套源色板符合 AA。
+- 示例注册、部署、AI、定价与页脚链接不是业务服务；正式产品须另接真实行为。
+- 本轮未执行远程推送、部署或更改参考工作区配置；不将本地同步等同于远程发布。
