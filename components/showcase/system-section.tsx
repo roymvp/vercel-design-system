@@ -67,14 +67,14 @@ export function SystemSection() {
   const [page, setPage] = React.useState(2)
 
   return (
-    <section id="system" className="border-t border-hairline">
-      <div className="mx-auto max-w-[var(--page-width)] px-6 py-20 md:py-28">
+    <section id="system" className="preview-section">
+      <div>
         <div className="flex flex-col gap-3">
-          <p className="type-caption font-medium text-mute">系统组件</p>
-          <h2 className="type-h2 text-ink">表单、反馈、浮层与导航</h2>
-          <p className="max-w-2xl type-body text-body text-pretty">
-            补齐 Geist 目录中的高频通用件。全部 token 驱动、支持明暗双主题，交互原语基于 Base UI，
-            具备完整键盘与 ARIA 支持。
+          <p className="type-caption font-medium text-body">工程扩展 · 交互组件</p>
+          <h2 className="type-section-heading text-ink">表单、反馈、浮层与导航</h2>
+          <p className="type-body-lg text-body text-pretty">
+            以下组件不属于 Live Preview 的原生内容，保留供业务开发复用。
+            基于 Base UI 的交互与明暗主题支持，不代表已连接部署、支付或其他服务。
           </p>
         </div>
 
@@ -82,9 +82,9 @@ export function SystemSection() {
           <Block title="表单原语" hint="Field / Input / Textarea / Select，含标签、说明">
             <div className="flex flex-col gap-5">
               <FormField>
-                <FieldLabel>项目名称</FieldLabel>
-                <Input placeholder="my-vercel-app" />
-                <FieldDescription>小写字母、数字与连字符</FieldDescription>
+                <FieldLabel htmlFor="extension-project">项目名称</FieldLabel>
+                <Input id="extension-project" aria-describedby="extension-project-hint" placeholder="my-vercel-app" />
+                <FieldDescription id="extension-project-hint">小写字母、数字与连字符</FieldDescription>
               </FormField>
               <FormField>
                 <FieldLabel>框架预设</FieldLabel>
@@ -100,8 +100,8 @@ export function SystemSection() {
                 </Select>
               </FormField>
               <FormField>
-                <FieldLabel>备注</FieldLabel>
-                <Textarea rows={3} placeholder="部署备注……" />
+                <FieldLabel htmlFor="extension-note">备注</FieldLabel>
+                <Textarea id="extension-note" rows={3} placeholder="部署备注……" />
               </FormField>
             </div>
           </Block>
@@ -124,7 +124,7 @@ export function SystemSection() {
               </Row>
               <div className="flex flex-col gap-2">
                 <span className="type-body-sm text-body">并发构建数</span>
-                <Slider defaultValue={3} min={1} max={8} />
+                <Slider aria-label="并发构建数" defaultValue={3} min={1} max={8} />
               </div>
             </div>
           </Block>
@@ -199,7 +199,7 @@ export function SystemSection() {
 
           <Block title="命令片段" hint="Snippet / 复制按钮">
             <div className="flex flex-col gap-4">
-              <Input placeholder="搜索……" className="pl-9" />
+              <Input aria-label="搜索命令" placeholder="搜索……" />
               <Snippet command="npx vercel deploy --prod" />
             </div>
           </Block>
