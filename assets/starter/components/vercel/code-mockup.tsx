@@ -17,7 +17,7 @@ export function CodeMockup({
   return (
     <div
       className={cn(
-        'overflow-hidden rounded-[var(--radius-md)] bg-primary text-on-primary shadow-[var(--shadow-4)]',
+        'overflow-hidden rounded-[var(--radius-md)] bg-panel-invert text-panel-invert-foreground shadow-[var(--shadow-4)]',
         className,
       )}
     >

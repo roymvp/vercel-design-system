@@ -11,6 +11,7 @@
 - error / warning / violet / cyan 的 soft、deep 与原值均在 CSS 中，highlight-pink / highlight-magenta 同理。示范多色系不等于允许新增任意色板。
 - hero 六个渐变端点为 `#007cf0 → #00dfd8`、`#7928ca → #ff0080`、`#ff4d4d → #f9cb28`。使用 MeshGradient 的统一大画幅组合，不缩成图标，不给普通卡片加彩色光晕。
 - `--primary` 映射 ink，`--primary-foreground` 映射 on-primary，`--ring` 映射 link。颜色已有 `@theme inline` 映射，可以直接用 `bg-canvas`、`text-body` 等。
+- `panel-invert #171717` / `panel-invert-foreground #fafafa`：固定反色面板专用，**刻意不随主题翻转**（`.dark` 与系统暗色回退里都不重定义）。用于代码卡、featured 定价卡等「有意的深色对比面」——双主题下都保持深墨底 + 白字，cyan 强调只在深底上成立。不要用会翻转的 `--primary` 做这类固定深色面板：暗色下 `--primary` 变浅会让硬编码白字消失（底变、字不变的经典 bug）。这类面板上的 CTA 也要用固定色（`bg-panel-invert-foreground text-panel-invert`），不要用会翻转的 `invert` 按钮变体。
 - `mute` 是原规范值，不保证放在任何背景上都达到小字 AA。可交互标签及必读正文优先 body / ink；不要宣称整个源调色板已通过无障碍认证。
 
 ## 排版与中文

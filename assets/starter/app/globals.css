@@ -44,6 +44,8 @@
   --color-body: var(--body);
   --color-mute: var(--mute);
   --color-on-primary: var(--on-primary);
+  --color-panel-invert: var(--panel-invert);
+  --color-panel-invert-foreground: var(--panel-invert-foreground);
   --color-canvas: var(--canvas);
   --color-canvas-soft: var(--canvas-soft);
   --color-canvas-soft-2: var(--canvas-soft-2);
@@ -88,6 +90,11 @@
   --body: #4d4d4d;
   --mute: #888888;
   --on-primary: #ffffff;
+  /* 固定反色面板：代码卡 / featured 定价卡等「有意的深色对比面」。
+     刻意不在 .dark 或系统暗色回退里重定义 —— 双主题下都保持深墨底 + 白字，
+     cyan 强调只在深底上成立。用它取代会翻转的 --primary，避免暗色下底变浅、白字消失。 */
+  --panel-invert: #171717;
+  --panel-invert-foreground: #fafafa;
   --canvas: #ffffff;
   --canvas-soft: #fafafa;
   --canvas-soft-2: #f5f5f5;
@@ -296,7 +303,7 @@
   prefers-color-scheme: dark 触发的、并不会加 .dark 类；若只认类，
   浏览器把默认画布染黑而 token 不翻转，就会出现「背景变了、文字没变」。
   因此在系统暗色偏好下，对「未显式选择亮色（无 .light 类）」的根同样套用暗色 token。
-  显式 .light / .dark 始终优先：.light 命中 :not(.light) 被排除、回落到 :root 亮色；
+  显式 .light / .dark 始终优先：.light 命中 :not(.light) ���排除、回落到 :root 亮色；
   .dark 由上面的规则直接命中。两处 token 值必须与 .dark 保持一致。
 */
 @media (prefers-color-scheme: dark) {
@@ -496,7 +503,7 @@
   }
 }
 
-/* 尊重系统「减少动态效果」：关闭全站过渡/动画 */
+/* 尊重系统「减少动态效果」：关闭全站过渡/���画 */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
