@@ -55,6 +55,7 @@ starter 使用 Tailwind 默认断点：sm 640px、md 768px、lg 1024px、xl 1280
 - `ThemeProvider`（`@/components/theme/theme-provider`）在 `<head>` 注入阻塞脚本，首帧前依据 localStorage（键 `theme`）或系统偏好写入 `.dark`，杜绝 FOUC；`layout.tsx` 的 `<html>` 必须带 `suppressHydrationWarning`。
 - `ThemeToggle`（`@/components/theme/theme-toggle`）是分段式 太阳 / 显示器 / 月亮 三态切换，选择 system 时跟随 `prefers-color-scheme` 实时变化。
 - 写组件时**只用语义 token**（`bg-canvas`、`text-ink`、`border-hairline`），不要写死 `#fff` / `#000` 或 tailwind 具体色阶，否则暗色下不会翻转。viewport 的 `themeColor` 已按 `prefers-color-scheme` 提供明暗两个值。
+- **系统暗色回退（预览环境必需）**：暗色 token 除挂在 `.dark` 类上，还在 `globals.css` 里额外用 `@media (prefers-color-scheme: dark) { :root:not(.light) { … } }` 复写一份。因为设计系统预览等环境不运行本项目的首屏脚本/`ThemeProvider`，它们靠**模拟系统暗色偏好**切换；若只认 `.dark` 类，浏览器只把默认画布染黑而 token 不翻转，就会出现「背景变了、文字没变」。为此 `ThemeProvider`/首屏脚本在选亮色时显式加 `.light` 类，用 `:not(.light)` 抑制回退（系统暗、用户手动选亮时不误翻）。**媒体块内的 token 值必须与 `.dark` 逐条一致**，改一处要同步另一处。
 
 ## 动效 token
 

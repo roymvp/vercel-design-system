@@ -33,7 +33,10 @@ function systemPref(): Resolved {
 
 function apply(resolved: Resolved) {
   const root = document.documentElement
+  // 同时维护显式 light/dark 类：dark 命中 .dark token；light 加 .light 以抑制
+  // globals.css 中 prefers-color-scheme 的系统暗色回退（系统暗、用户选亮时不误翻）。
   root.classList.toggle('dark', resolved === 'dark')
+  root.classList.toggle('light', resolved === 'light')
   root.style.colorScheme = resolved
 }
 
@@ -87,4 +90,4 @@ export function useTheme() {
   首屏阻塞脚本：在 React 水合前把已保存的主题写到 <html>，避免暗色闪白。
   以字符串注入到 layout 的 <head>，用 dangerouslySetInnerHTML 执行。
 */
-export const themeInitScript = `(function(){try{var k='${STORAGE_KEY}';var t=localStorage.getItem(k)||'system';var d=t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches);var r=document.documentElement;r.classList.toggle('dark',d);r.style.colorScheme=d?'dark':'light';}catch(e){}})();`
+export const themeInitScript = `(function(){try{var k='${STORAGE_KEY}';var t=localStorage.getItem(k)||'system';var d=t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches);var r=document.documentElement;r.classList.toggle('dark',d);r.classList.toggle('light',!d);r.style.colorScheme=d?'dark':'light';}catch(e){}})();`
