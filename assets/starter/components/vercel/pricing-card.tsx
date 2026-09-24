@@ -32,7 +32,9 @@ export function PricingCard({
     <div
       className={cn(
         'flex flex-col rounded-[var(--radius-lg)] p-[var(--space-xl)] shadow-[var(--shadow-4)]',
-        featured ? 'bg-primary text-on-primary' : 'bg-canvas text-ink',
+        featured
+          ? 'bg-panel-invert text-panel-invert-foreground'
+          : 'bg-canvas text-ink',
         className,
       )}
     >
@@ -81,7 +83,12 @@ export function PricingCard({
       <Button
         variant={featured ? 'invert' : 'primary'}
         size="md"
-        className="mt-8 w-full"
+        className={cn(
+          'mt-8 w-full',
+          // featured 面板是固定深底，CTA 固定为白 pill + 深字（invert 变体会随主题翻转，此处覆盖）
+          featured &&
+            'bg-panel-invert-foreground text-panel-invert hover:bg-panel-invert-foreground/90',
+        )}
       >
         {cta}
       </Button>
